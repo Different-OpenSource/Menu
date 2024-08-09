@@ -1,4 +1,5 @@
 interface MenuItem {
+  id: string;
   name: string;
   image: string;
   shortDescription: string;
@@ -21,6 +22,7 @@ export function GetStore() {
     image: '/images/store-image.jpg',
     menu: [
       {
+        id: "da2882d1-c39a-4c57-8e9f-7ada7d41e77d",
         name: "Bruschetta",
         image: "/images/bruschetta.jpg",
         shortDescription: "Pão italiano tostado com tomate e manjericão",
@@ -29,6 +31,7 @@ export function GetStore() {
         price: 12.00
       },
       {
+        id: "753f84cc-9f67-4d32-8175-81c77de1d744",
         name: "Carpaccio",
         image: "/images/carpaccio.jpg",
         shortDescription: "Fino corte de carne crua",
@@ -37,6 +40,7 @@ export function GetStore() {
         price: 15.00
       },
       {
+        id: "3032aeb5-59f1-41a2-9179-89f42595936a",
         name: "Salada Caprese",
         image: "/images/salada-caprese.jpeg",
         shortDescription: "Salada italiana fresca",
@@ -45,6 +49,7 @@ export function GetStore() {
         price: 14.00
       },
       {
+        id: "3aedfedc-899c-42f8-af6d-4e0bb7053703",
         name: "Tábua de Queijos",
         image: "/images/tabua-queijos.jpg",
         shortDescription: "Seleção de queijos finos",
@@ -53,6 +58,7 @@ export function GetStore() {
         price: 18.00
       },
       {
+        id: "439cce78-2b93-4ef4-8d5f-bc8e3d81f132",
         name: "Lasanha à bolonhesa",
         image: "/images/lasanha-bolonhesa.jpg",
         shortDescription: "Clássica lasanha italiana",
@@ -61,6 +67,7 @@ export function GetStore() {
         price: 25.00
       },
       {
+        id: "afb0a92f-51eb-4889-a238-822205c5ae22",
         name: "Risoto de camarão",
         image: "/images/risoto-camarao.jpg",
         shortDescription: "Risoto cremoso de camarão",
@@ -69,6 +76,7 @@ export function GetStore() {
         price: 30.00
       },
       {
+        id: "f68da3e8-ec39-4fde-99b7-c834b279a998",
         name: "Frango à Parmegiana",
         image: "/images/frango-parmegiana.webp",
         shortDescription: "Frango empanado com queijo e molho de tomate",
@@ -77,6 +85,7 @@ export function GetStore() {
         price: 22.00
       },
       {
+        id: "e1d4179e-bf3c-4898-beb9-f4bc32da30c2",
         name: "Pizza Margherita",
         image: "/images/pizza.webp",
         shortDescription: "Pizza clássica italiana",
@@ -85,6 +94,7 @@ export function GetStore() {
         price: 28.00
       },
       {
+        id: "ed25d7f2-f413-46be-bcbb-102d94b2aa27",
         name: "Vinho Tinto",
         image: "/images/vinho.webp",
         shortDescription: "Vinho tinto seco",
@@ -93,6 +103,7 @@ export function GetStore() {
         price: 40.00
       },
       {
+        id: "16da6943-9516-4834-98c3-0250b57e5403",
         name: "Suco de Laranja",
         image: "/images/suco-laranja.jpeg",
         shortDescription: "Suco de laranja natural",
@@ -101,6 +112,7 @@ export function GetStore() {
         price: 8.00
       },
       {
+        id: "35fff4a9-535f-429c-a1da-7cfa7cd8d728",
         name: "Água Mineral",
         image: "/images/agua.webp",
         shortDescription: "Água mineral natural",
@@ -109,6 +121,7 @@ export function GetStore() {
         price: 3.00
       },
       {
+        id: "fa7a1613-ec50-4b63-933d-8e10534e335f",
         name: "Café Expresso",
         image: "/images/cafe.png",
         shortDescription: "Café expresso forte",
@@ -117,6 +130,7 @@ export function GetStore() {
         price: 4.00
       },
       {
+        id: "62bdd6f2-2ca0-4594-9094-a2d24af37461",
         name: "Tiramisu",
         image: "/images/tiramisu.jpg",
         shortDescription: "Clássica sobremesa italiana",
@@ -125,6 +139,7 @@ export function GetStore() {
         price: 15.00
       },
       {
+        id: "1dd643fb-a2a6-4c39-9a72-07296834f625",
         name: "Pudim de Leite",
         image: "/images/pudim.webp",
         shortDescription: "Pudim de leite condensado",
@@ -133,6 +148,7 @@ export function GetStore() {
         price: 12.00
       },
       {
+        id: "77c7fee1-3fa9-458e-a6e7-bf96b8a7b09f",
         name: "Gelato de Baunilha",
         image: "/images/gelato.jpg",
         shortDescription: "Sorvete italiano de baunilha",
@@ -141,6 +157,7 @@ export function GetStore() {
         price: 10.00
       },
       {
+        id: "72c094aa-012f-4d18-b45e-5a0c1f7e8207",
         name: "Cannoli",
         image: "/images/cannoli.jpg",
         shortDescription: "Doce italiano recheado",

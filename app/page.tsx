@@ -1,8 +1,11 @@
+'use client'
 import Image from "next/image";
 import { GetStore } from "./actions/get-store";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
   const store = GetStore();
   const uniqueCategories = store.menu.filter((item, index, self) =>
     index === self.findIndex((t) => (
@@ -34,7 +37,7 @@ export default function Home() {
                   <h2 className="text-xl font-bold">{category}</h2>
                   {
                     store.menu.filter(item => item.category === category).map((item, index) => (
-                      <div key={index} className="flex gap-4 border-b border-gray-200 py-4 bg-gray-200 p-2 cursor-pointer hover:bg-gray-300 active:bg-slate-200">
+                      <div onClick={() => router.push(`/item/${item.id}`)}  key={index} className="flex gap-4 border-b border-gray-200 py-4 bg-gray-200 p-2 cursor-pointer hover:bg-gray-300 active:bg-slate-200">
                         {
                           <div>
                             <Image src={item.image} alt={item.name} width={80} height={80} className="w-[80px] h-[80px] rounded-md" />
