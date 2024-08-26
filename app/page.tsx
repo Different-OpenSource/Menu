@@ -1,61 +1,60 @@
-'use client'
-import Image from "next/image";
-import { GetStore } from "./actions/get-store";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { notFound } from 'next/navigation'
+import Image from 'next/image'
+import { Store } from '@/app/types/store';
+import { getStoreMenusWithCategoriesAndItems } from '@/app/lib/prisma';
+import StoreContent from './StoreContent';
 
-export default function Home() {
-  const router = useRouter();
-  const store = GetStore();
-  const uniqueCategories = store.menu.filter((item, index, self) =>
-    index === self.findIndex((t) => (
-      t.category === item.category
-    ))
-  ).map(item => item.category);
+export default async function StorePage() {
+  const storeData = await getStoreMenusWithCategoriesAndItems("48307c74-9550-47f6-918f-6bc5371e8a6a");
+
+  if (!storeData || !storeData.activeMenu) {
+    notFound()
+  }
+
+  const store: Store = {
+    ...storeData,
+    activeMenu: {
+      ...storeData.activeMenu,
+      categories: storeData.activeMenu.categories.map(category => ({
+        ...category,
+        items: category.items.map(item => ({
+          ...item,
+          itemOptions: item.itemOptions.map(itemOption => ({
+            id: itemOption.itemOption.id,
+            name: itemOption.itemOption.name,
+            description: itemOption.itemOption.description,
+            price: itemOption.itemOption.price.toNumber()
+          })),
+          price: item.price.toNumber()
+        }))
+      }))
+    }
+  };
 
   return (
-    <main className="flex justify-center">
-      <section className="max-w-[500px] pb-8">
-        <div>
-          <Image src={store.image} alt={store.name} width={500} height={500} />
+    <div className="min-h-screen bg-gray-100">
+      <div className="bg-white shadow">
+        <div className="relative h-48 sm:h-64 md:h-80">
+          <Image
+            src={store.image}
+            alt={store.name}
+            layout="fill"
+            objectFit="cover"
+            className="w-full h-full object-center"
+          />
+          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white text-center">
+              {store.name}
+            </h1>
+          </div>
         </div>
-        <section className="px-4">
-          <h1 className="text-4xl font-bold pt-2">{store.name}</h1>
-          <div className="flex gap-4 py-4">
-            {
-              uniqueCategories.map((category, index) => (
-                <div key={index}>
-                  <Link href={`#${category}`} className="text-sm font-semibold cursor-pointer hover:text-gray-600 active:font-bold">{category}</Link>
-                </div>
-              ))
-            }
-          </div>
-          <div className="flex flex-col gap-4">
-            {
-              uniqueCategories.map((category, index) => (
-                <div key={category} id={category} className="gap-4 flex flex-col">
-                  <h2 className="text-xl font-bold">{category}</h2>
-                  {
-                    store.menu.filter(item => item.category === category).map((item, index) => (
-                      <div onClick={() => router.push(`/item/${item.id}`)}  key={index} className="flex gap-4 border-b border-gray-200 py-4 bg-gray-200 p-2 cursor-pointer hover:bg-gray-300 active:bg-slate-200">
-                        {
-                          <div>
-                            <Image src={item.image} alt={item.name} width={80} height={80} className="w-[80px] h-[80px] rounded-md" />
-                          </div>
-                        }
-                        <div>
-                          <h2 className="text-xl">{item.name}</h2>
-                          <p className="text-sm text-gray-500">{item.shortDescription}</p>
-                        </div>
-                      </div>
-                    ))
-                  }
-                </div>
-              ))
-            }
-          </div>
-        </section>
-      </section>
-    </main>
+        <div className="max-w-7xl mx-auto px-4 sm:px-12 lg:px-16 py-4">
+          <p className="text-lg text-gray-600">{store.description}</p>
+        </div>
+      </div>
+      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <StoreContent store={store} />
+      </main>
+    </div>
   );
 }

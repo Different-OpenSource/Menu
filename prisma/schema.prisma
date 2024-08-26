@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String   @id @default(uuid())
+  email    String   @unique
+  password String
+  name     String
+  isAdmin  Boolean?
+  storeId  String
+  store    Store    @relation(fields: [storeId], references: [id])
+}
+
+model Menu {
+  id         String     @id @default(uuid())
+  categories Category[]
+  store      Store      @relation("StoreMenus", fields: [storeId], references: [id])
+  storeId    String
+  activeFor  Store?     @relation("ActiveMenu")
+}
+
+model Store {
+  id           String  @id @default(uuid())
+  image        String
+  name         String
+  description  String
+  users        User[]
+  menus        Menu[]  @relation("StoreMenus")
+  activeMenu   Menu?   @relation("ActiveMenu", fields: [activeMenuId], references: [id])
+  activeMenuId String? @unique
+}
+
+model Category {
+  id     String @id @default(uuid())
+  name   String
+  items  Item[]
+  menu   Menu   @relation(fields: [menuId], references: [id])
+  menuId String
+}
+
+model Item {
+  id               String             @id @default(uuid())
+  name             String
+  description      String
+  price            Decimal            @db.Decimal(8, 2)
+  image            String
+  shortDescription String
+  category         Category           @relation(fields: [categoryId], references: [id])
+  categoryId       String
+  itemOptions      ItemOptionOnItem[]
+}
+
+model ItemOption {
+  id          String             @id @default(uuid())
+  name        String
+  description String?
+  price       Decimal            @db.Decimal(8, 2)
+  items       ItemOptionOnItem[]
+}
+
+model ItemOptionOnItem {
+  item         Item       @relation(fields: [itemId], references: [id])
+  itemId       String
+  itemOption   ItemOption @relation(fields: [itemOptionId], references: [id])
+  itemOptionId String
+
+  @@id([itemId, itemOptionId])
+}
