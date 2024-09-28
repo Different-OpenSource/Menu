@@ -2,10 +2,10 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import { Store } from '@/src/app/types/store';
 import { getStoreMenusWithCategoriesAndItems } from '@/src/app/lib/prisma';
-import StoreContent from './teste/StoreContent';
+import StoreContent from './store/StoreContent';
 
 export default async function StorePage() {
-  const storeData = await getStoreMenusWithCategoriesAndItems("48307c74-9550-47f6-918f-6bc5371e8a6a");
+  const storeData = await getStoreMenusWithCategoriesAndItems("");
 
   if (!storeData || !storeData.activeMenu) {
     notFound()
