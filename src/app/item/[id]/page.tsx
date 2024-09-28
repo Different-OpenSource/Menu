@@ -1,4 +1,5 @@
-import { GetStore } from "@/app/actions/get-store"
+import { GetStore } from "@/src/app/actions/get-store"
+import { CurrencyFormat } from "@/src/app/helpers/currencyFormat"
 import Image from "next/image"
 
 export default function Page({ params }: { params: { id: string } }) {
@@ -17,7 +18,7 @@ export default function Page({ params }: { params: { id: string } }) {
           <div className="flex gap-4 py-4 text-gray-600"> 
             {item?.description}
           </div>
-          <h2 className="text-2xl font-bold pt-2 text-gray-700 underline-offset-2 underline">R$ {item?.price.toFixed(2)}</h2>
+          <h2 className="text-2xl font-bold pt-2 text-gray-700 underline-offset-2 underline">{CurrencyFormat(item?.price || 0)}</h2>
         </section>
       </section>
     </main>
